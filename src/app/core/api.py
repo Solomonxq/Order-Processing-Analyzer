@@ -1,7 +1,9 @@
-import requests
 from contextlib import ContextDecorator
-from .exepcions import OrderFetchError
+
+import requests
+
 from ..logs.loger import logger
+
 
 class OrderAPISession(ContextDecorator):
     def __enter__(self):
@@ -17,11 +19,11 @@ class OrderAPISession(ContextDecorator):
             self.data = response.json()
             if not isinstance(self.data, list):
                 logger.error("API повернув не коректні дані")
-                raise OrderFetchError()
-            return self.data  
-        except requests.RequestException as e:
+
+            return self.data
+        except requests.RequestException:
             logger.error("API повернув не коректні дані")
-            raise OrderFetchError()
+
 
     def __exit__(self, exc_type, exc_value, traceback):
         if self.session:
@@ -32,6 +34,6 @@ class OrderAPISession(ContextDecorator):
         else:
             logger.info(f"Зчитано: {len(self.data) if self.data else 0}")
 
-        return False 
+        return False
 
 

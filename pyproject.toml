@@ -1,12 +1,37 @@
 [project]
 name = "order-processing-analyzer"
 version = "0.1.0"
-description = "Add your description here"
+description = "Order Processing Analyzer"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
     "fastapi>=0.135.1",
     "pydantic>=2.12.5",
-    "requests>=2.32.5",
     "uvicorn>=0.41.0",
 ]
+
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.6",
+]
+
+[tool.ruff]
+
+src = ["src"]
+
+line-length = 88
+# Версія Python
+target-version = "py311"
+
+[tool.ruff.lint]
+
+select = ["E", "W", "F", "I", "B", "UP"]
+ignore = []
+
+fixable = ["ALL"]
+
+[tool.ruff.format]
+
+quote-style = "double"
+indent-style = "space"

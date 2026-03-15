@@ -1,5 +1,5 @@
-from pathlib import Path
 import logging
+from pathlib import Path
 
 log_path = Path("src/app/logs")
 log_path.mkdir(parents=True, exist_ok=True)
@@ -9,7 +9,7 @@ logger = logging.getLogger("store_app")
 logger.setLevel(logging.INFO)
 
 console_handler = logging.StreamHandler()
-file_handler = logging.FileHandler(log_path / "app.log", encoding="utf-8")  
+file_handler = logging.FileHandler(log_path / "app.log", encoding="utf-8")
 
 
 formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")

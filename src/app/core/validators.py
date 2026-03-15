@@ -1,7 +1,6 @@
-from pydantic import BaseModel , Field ,HttpUrl , ValidationError
+from pydantic import BaseModel, Field, HttpUrl, ValidationError
+
 from ..logs.loger import logger
-
-
 
 
 class Rating(BaseModel):
@@ -17,7 +16,7 @@ class OrderRecord(BaseModel):
     category: str
     image: HttpUrl
     rating: Rating
-    
+
 
 
 def validate_order(raw: dict) -> OrderRecord | None:

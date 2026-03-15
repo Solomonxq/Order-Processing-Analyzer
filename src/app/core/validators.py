@@ -1,5 +1,5 @@
 from pydantic import BaseModel , Field ,HttpUrl , ValidationError
-
+from ..logs.loger import logger
 
 
 
@@ -23,6 +23,7 @@ class OrderRecord(BaseModel):
 def validate_order(raw: dict) -> OrderRecord | None:
     try:
         record: OrderRecord = OrderRecord(**raw)
+        logger.info("Валідація Успішна")
         return record
     except ValidationError:
         return None

@@ -7,17 +7,21 @@ class OrderAPISession(ContextDecorator):
     def __enter__(self):
         logger.info("API сесія почалась")
         self.session = requests.Session()
-        url = "https://fakestoreapi.com/products"
         self.data: list[dict]
+        return self
 
+    def fetch_orders(self):
+        url = "https://fakestoreapi.com/products"
         try:
             response = self.session.get(url, timeout=5)
             self.data = response.json()
             if not isinstance(self.data, list):
-                raise OrderFetchError(logger.error("API повернув некоректні дані"))
+                logger.error("API повернув не коректні дані")
+                raise OrderFetchError()
             return self.data  
         except requests.RequestException as e:
-            raise OrderFetchError(logger.error(f"Не вдалося отримати дані з API: {e}"))
+            logger.error("API повернув не коректні дані")
+            raise OrderFetchError()
 
     def __exit__(self, exc_type, exc_value, traceback):
         if self.session:
@@ -30,6 +34,4 @@ class OrderAPISession(ContextDecorator):
 
         return False 
 
-# Використання
-with OrderAPISession() as orders:
-    print(orders)  
+
